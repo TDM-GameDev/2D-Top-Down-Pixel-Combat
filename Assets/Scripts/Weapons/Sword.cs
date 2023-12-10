@@ -7,11 +7,18 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Animator))]
 public class Sword : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject slashAnimationPrefab;
+
+    [SerializeField]
+    private Transform slashAnimationSpawnPoint;
     private PlayerControls playerControls;
     private Animator animator;
     private PlayerController playerController;
     private PlayerInput playerInput;
     private ActiveWeapon activeWeapon;
+
+    private GameObject slashAnimation;
 
     private void Awake()
     {
@@ -84,5 +91,30 @@ public class Sword : MonoBehaviour
     private void Attack()
     {
         animator.SetTrigger("attack");
+
+        slashAnimation = Instantiate(
+            slashAnimationPrefab,
+            slashAnimationSpawnPoint.position,
+            Quaternion.identity
+        );
+        slashAnimation.transform.parent = transform.parent;
+    }
+
+    public void SwingUpFlipAnimation()
+    {
+        slashAnimation.gameObject.transform.rotation = Quaternion.Euler(180, 0, 0);
+        if (playerController.FacingLeft)
+        {
+            slashAnimation.GetComponent<SpriteRenderer>().flipX = true;
+        }
+    }
+
+    public void SwingDownFlipAnimation()
+    {
+        slashAnimation.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        if (playerController.FacingLeft)
+        {
+            slashAnimation.GetComponent<SpriteRenderer>().flipX = true;
+        }
     }
 }

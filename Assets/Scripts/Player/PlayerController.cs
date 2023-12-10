@@ -9,6 +9,12 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
+    public bool FacingLeft
+    {
+        get { return _facingLeft; }
+        set { _facingLeft = value; }
+    }
+
     [SerializeField]
     private float moveSpeed = 4f;
 
@@ -18,6 +24,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private PlayerInput playerInput;
     private SpriteRenderer spriteRenderer;
+
+    private bool _facingLeft = false;
 
     private void Awake()
     {
@@ -70,10 +78,12 @@ public class PlayerController : MonoBehaviour
             if (mousePosition.x < playerScreenPoint.x)
             {
                 spriteRenderer.flipX = true;
+                _facingLeft = true;
             }
             else
             {
                 spriteRenderer.flipX = false;
+                _facingLeft = false;
             }
         }
         else if (playerInput.currentControlScheme == playerControls.GamepadScheme.name)
@@ -82,10 +92,12 @@ public class PlayerController : MonoBehaviour
             if (aimVector.x < -0.1f)
             {
                 spriteRenderer.flipX = true;
+                _facingLeft = true;
             }
             else if (aimVector.x > 0.1f)
             {
                 spriteRenderer.flipX = false;
+                _facingLeft = false;
             }
         }
     }
