@@ -63,23 +63,28 @@ public class PlayerController : MonoBehaviour
 
     private void AdjustPlayerFacingDirection()
     {
-        // Testing git changes
-        if (playerInput.currentControlScheme == playerControls.KBMScheme.name) {
+        if (playerInput.currentControlScheme == playerControls.KBMScheme.name)
+        {
             Vector2 mousePosition = playerControls.Movement.Aim.ReadValue<Vector2>();
             Vector2 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
-            if (mousePosition.x < playerScreenPoint.x) {
+            if (mousePosition.x < playerScreenPoint.x)
+            {
                 spriteRenderer.flipX = true;
             }
-            else {
+            else
+            {
                 spriteRenderer.flipX = false;
             }
         }
-        else if (playerInput.currentControlScheme == playerControls.GamepadScheme.name) {
+        else if (playerInput.currentControlScheme == playerControls.GamepadScheme.name)
+        {
             Vector2 aimVector = playerControls.Movement.Aim.ReadValue<Vector2>();
-            if (aimVector.x < -0.1f) {
+            if (aimVector.x < -0.1f)
+            {
                 spriteRenderer.flipX = true;
             }
-            else if (aimVector.x > 0.1f) {
+            else if (aimVector.x > 0.1f)
+            {
                 spriteRenderer.flipX = false;
             }
         }
