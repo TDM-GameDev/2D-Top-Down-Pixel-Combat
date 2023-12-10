@@ -63,6 +63,7 @@ public class PlayerController : MonoBehaviour
 
     private void AdjustPlayerFacingDirection()
     {
+        // Testing git changes
         if (playerInput.currentControlScheme == playerControls.KBMScheme.name) {
             Vector2 mousePosition = playerControls.Movement.Aim.ReadValue<Vector2>();
             Vector2 playerScreenPoint = Camera.main.WorldToScreenPoint(transform.position);
