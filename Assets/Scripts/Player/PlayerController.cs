@@ -10,14 +10,11 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController Instance;
-    public bool FacingLeft
-    {
-        get { return _facingLeft; }
-        set { _facingLeft = value; }
-    }
+    public bool FacingLeft { get { return _facingLeft; } }
 
-    [SerializeField]
-    private float moveSpeed = 4f;
+    [SerializeField] private TrailRenderer trailRenderer;
+    [SerializeField] private float moveSpeed = 1f;
+    [SerializeField] private float dashSpeed = 4f;
 
     private PlayerControls playerControls;
     private Vector2 movement;
@@ -25,8 +22,10 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private PlayerInput playerInput;
     private SpriteRenderer spriteRenderer;
+    private float startingMoveSpeed;
 
     private bool _facingLeft = false;
+    private bool isDashing = false;
 
     private void Awake()
     {
@@ -53,6 +52,12 @@ public class PlayerController : MonoBehaviour
     private void OnDisable()
     {
         playerControls.Disable();
+    }
+
+    private void Start()
+    {
+        playerControls.Combat.Dash.performed += _ => Dash();
+        startingMoveSpeed = moveSpeed;
     }
 
     private void FixedUpdate()
@@ -109,5 +114,27 @@ public class PlayerController : MonoBehaviour
                 _facingLeft = false;
             }
         }
+    }
+
+    private void Dash()
+    {
+        if (!isDashing)
+        {
+            isDashing = true;
+            moveSpeed *= dashSpeed;
+            trailRenderer.emitting = true;
+            StartCoroutine(EndDashRoutine());
+        }
+    }
+
+    private IEnumerator EndDashRoutine()
+    {
+        float dashTime = 0.2f;
+        float dashCooldown = 0.25f;
+        yield return new WaitForSeconds(dashTime);
+        moveSpeed = startingMoveSpeed;
+        trailRenderer.emitting = false;
+        yield return new WaitForSeconds(dashCooldown);
+        isDashing = false;
     }
 }

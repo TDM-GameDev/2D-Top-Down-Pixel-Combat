@@ -9,10 +9,7 @@ public class DamageSource : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<EnemyHealth>())
-        {
-            EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
-            enemyHealth.ReceiveDamage(baseDamageValue);
-        }
+        EnemyHealth enemyHealth = other.gameObject.GetComponent<EnemyHealth>();
+        enemyHealth?.ReceiveDamage(baseDamageValue);
     }
 }
