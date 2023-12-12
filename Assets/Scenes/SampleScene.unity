@@ -870,6 +870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slashAnimationPrefab: {fileID: 1132812088425033641, guid: fc15dc2e4d782e74e94b9cd9bfb8a6f6, type: 3}
   slashAnimationSpawnPoint: {fileID: 1389548476}
+  weaponCollider: {fileID: 862819469}
 --- !u!95 &701685948
 Animator:
   serializedVersion: 5
@@ -1047,13 +1048,14 @@ GameObject:
   m_Component:
   - component: {fileID: 862819469}
   - component: {fileID: 862819470}
+  - component: {fileID: 862819471}
   m_Layer: 0
   m_Name: WeaponCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &862819469
 Transform:
   m_ObjectHideFlags: 0
@@ -1114,7 +1116,8 @@ PolygonCollider2D:
   m_Points:
     m_Paths:
     - - {x: 0.8116395, y: 1.3866725}
-      - {x: -0.019792423, y: 1.3986759}
+      - {x: 0.40918532, y: 1.5047741}
+      - {x: -0.26129776, y: 1.2889006}
       - {x: 0.32979625, y: 0.3910142}
       - {x: -0.042079657, y: -0.7892248}
       - {x: 0.8132995, y: -0.74036163}
@@ -1122,6 +1125,19 @@ PolygonCollider2D:
       - {x: 1.3234657, y: 0.23986992}
       - {x: 1.3073201, y: 0.9734771}
   m_UseDelaunayMesh: 0
+--- !u!114 &862819471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862819468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2632408ee86bc5544bd43f93c399929a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseDamageValue: 1
 --- !u!1001 &933360919
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2532,6 +2548,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3252058258404812346, guid: 6691a121ce4b77542be8356bd414b0b1, type: 3}
+      propertyPath: deathVfxPrefab
+      value: 
+      objectReference: {fileID: 9142523447511594065, guid: 2788fc60ad7f1e342ae79f357cff3363, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

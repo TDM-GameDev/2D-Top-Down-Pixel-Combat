@@ -12,6 +12,9 @@ public class Sword : MonoBehaviour
 
     [SerializeField]
     private Transform slashAnimationSpawnPoint;
+
+    [SerializeField]
+    private Transform weaponCollider;
     private PlayerControls playerControls;
     private Animator animator;
     private PlayerController playerController;
@@ -68,10 +71,12 @@ public class Sword : MonoBehaviour
             if (mousePosition.x < playerScreenPoint.x)
             {
                 activeWeapon.transform.rotation = Quaternion.Euler(0, -180, 0);
+                weaponCollider.rotation = Quaternion.Euler(0, -180, 0);
             }
             else
             {
                 activeWeapon.transform.rotation = Quaternion.Euler(0, 0, 0);
+                weaponCollider.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
         else if (playerInput.currentControlScheme == playerControls.GamepadScheme.name)
@@ -80,10 +85,12 @@ public class Sword : MonoBehaviour
             if (aimVector.x < -0.1f)
             {
                 activeWeapon.transform.rotation = Quaternion.Euler(0, -180, 0);
+                weaponCollider.rotation = Quaternion.Euler(0, -180, 0);
             }
             else if (aimVector.x > 0.1f)
             {
                 activeWeapon.transform.rotation = Quaternion.Euler(0, 0, 0);
+                weaponCollider.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
     }
@@ -91,6 +98,7 @@ public class Sword : MonoBehaviour
     private void Attack()
     {
         animator.SetTrigger("attack");
+        weaponCollider.gameObject.SetActive(true);
 
         slashAnimation = Instantiate(
             slashAnimationPrefab,
@@ -100,7 +108,7 @@ public class Sword : MonoBehaviour
         slashAnimation.transform.parent = transform.parent;
     }
 
-    public void SwingUpFlipAnimation()
+    public void SwingUpFlipAnimationEvent()
     {
         slashAnimation.gameObject.transform.rotation = Quaternion.Euler(180, 0, 0);
         if (playerController.FacingLeft)
@@ -109,12 +117,17 @@ public class Sword : MonoBehaviour
         }
     }
 
-    public void SwingDownFlipAnimation()
+    public void SwingDownFlipAnimationEvent()
     {
         slashAnimation.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
         if (playerController.FacingLeft)
         {
             slashAnimation.GetComponent<SpriteRenderer>().flipX = true;
         }
+    }
+
+    public void DoneAttackingAnimationEvent()
+    {
+        weaponCollider.gameObject.SetActive(false);
     }
 }
